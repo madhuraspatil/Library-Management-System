@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Dashboard</title><link rel="stylesheet" href="../css/style.css"></head>
+<body>
+  <nav class="sidebar">
+    <h2>📚 Library</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="books.html">Books</a>
+    <a href="users.html">Users</a>
+    <a href="assign.html">Assign Book</a>
+    <a href="returns.html">Returns</a>
+    <button onclick="logout()">Logout</button>
+  </nav>
+  <main>
+    <h1>Dashboard</h1>
+    <div class="stats-grid">
+      <div class="stat-card"><h3 id="totalBooks">0</h3><p>Total Books</p></div>
+      <div class="stat-card"><h3 id="totalStudents">0</h3><p>Students</p></div>
+      <div class="stat-card"><h3 id="activeIssues">0</h3><p>Active Issues</p></div>
+      <div class="stat-card"><h3 id="totalFines">0</h3><p>Pending Fines (₹)</p></div>
+    </div>
+  </main>
+  <script src="../js/auth.js"></script>
+  <script>
+    async function loadDashboard() {
+      const res = await fetch('http://localhost:5000/api/reports/dashboard', {
+        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+      });
+      const data = await res.json();
+      document.getElementById('totalBooks').textContent = data.totalBooks;
+      document.getElementById('totalStudents').textContent = data.totalStudents;
+      document.getElementById('activeIssues').textContent = data.activeIssues;
+      document.getElementById('totalFines').textContent = data.totalFines;
+    }
+    loadDashboard();
+  </script>
+</body>
+</html>

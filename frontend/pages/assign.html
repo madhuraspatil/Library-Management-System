@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Assign Book</title><link rel="stylesheet" href="../css/style.css"></head>
+<body>
+  <nav class="sidebar">
+    <h2>📚 Library</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="books.html">Books</a>
+    <a href="users.html">Users</a>
+    <a href="assign.html" class="active">Assign Book</a>
+    <a href="returns.html">Returns</a>
+    <button onclick="logout()">Logout</button>
+  </nav>
+  <main>
+    <h1>Assign Book</h1>
+    <div class="form-box">
+      <select id="bookSelect"><option value="">Select Book</option></select>
+      <select id="studentSelect"><option value="">Select Student</option></select>
+      <input id="dueDate" type="date" />
+      <button onclick="assignBook()">Issue Book</button>
+    </div>
+    <h2>Currently Issued</h2>
+    <table id="issueTable">
+      <thead><tr><th>Student</th><th>Roll No</th><th>Book</th><th>Issue Date</th><th>Due Date</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script src="../js/auth.js"></script>
+  <script src="../js/assign.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Returns</title><link rel="stylesheet" href="../css/style.css"></head>
+<body>
+  <nav class="sidebar">
+    <h2>📚 Library</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="books.html">Books</a>
+    <a href="users.html">Users</a>
+    <a href="assign.html">Assign Book</a>
+    <a href="returns.html" class="active">Returns</a>
+    <button onclick="logout()">Logout</button>
+  </nav>
+  <main>
+    <h1>Return Books</h1>
+    <table id="returnTable">
+      <thead><tr><th>Student</th><th>Book</th><th>Due Date</th><th>Status</th><th>Return</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script src="../js/auth.js"></script>
+  <script src="../js/returns.js"></script>
+</body>
+</html>
