@@ -1,10 +1,69 @@
-<div class="form-box">
-  <input id="title" placeholder="Title" />
-  <input id="author" placeholder="Author" />
-  <input id="isbn" placeholder="ISBN" />
-  <input id="category" placeholder="Category" />
-  <input id="qty" type="number" placeholder="Quantity" value="1" />
-  <button id="submitBtn" onclick="addBook()">Add Book</button>
-  <button id="cancelBtn" onclick="cancelEdit()" 
-    style="display:none; background:#6b7280">Cancel</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Books — Library</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <h1>LibraryOS</h1>
+      <p>Admin Portal</p>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Main Menu</div>
+      <a href="dashboard.html"><span class="nav-icon">🏛️</span> Dashboard</a>
+      <a href="books.html" class="active"><span class="nav-icon">📖</span> Books</a>
+      <a href="users.html"><span class="nav-icon">🎓</span> Students</a>
+      <a href="assign.html"><span class="nav-icon">📋</span> Assign Book</a>
+      <a href="returns.html"><span class="nav-icon">↩️</span> Returns</a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="admin-badge">
+        <div class="admin-avatar">A</div>
+        <div class="admin-info"><p>Admin</p><span>Administrator</span></div>
+      </div>
+      <button class="logout-btn" onclick="logout()">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>📖 Books</h1>
+      <p>Manage your entire library catalog</p>
+    </div>
+
+    <div class="form-box">
+      <input id="title"    placeholder="📚 Book Title *" />
+      <input id="author"   placeholder="✍️ Author *" />
+      <input id="isbn"     placeholder="🔢 ISBN" />
+      <input id="category" placeholder="🏷️ Category" />
+      <input id="qty" type="number" placeholder="Qty" value="1" style="max-width:80px" />
+      <button class="btn-primary" id="submitBtn" onclick="addBook()">＋ Add Book</button>
+      <button class="btn-cancel"  id="cancelBtn" onclick="cancelEdit()">✕ Cancel</button>
+    </div>
+
+    <div class="table-box">
+      <div class="table-header">
+        <h2>📚 All Books</h2>
+        <span class="table-count" id="bookCount">0 books</span>
+      </div>
+      <table id="booksTable">
+        <thead>
+          <tr>
+            <th>#</th><th>Title</th><th>Author</th><th>Category</th>
+            <th>Availability</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/books.js"></script>
+</body>
+</html>

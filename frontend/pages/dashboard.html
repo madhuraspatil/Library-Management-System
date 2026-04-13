@@ -1,37 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Dashboard</title><link rel="stylesheet" href="../css/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — Library</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
 <body>
   <nav class="sidebar">
-    <h2>📚 Library</h2>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="books.html">Books</a>
-    <a href="users.html">Users</a>
-    <a href="assign.html">Assign Book</a>
-    <a href="returns.html">Returns</a>
-    <button onclick="logout()">Logout</button>
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <h1>LibraryOS</h1>
+      <p>Admin Portal</p>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Main Menu</div>
+      <a href="dashboard.html" class="active">
+        <span class="nav-icon">🏛️</span> Dashboard
+      </a>
+      <a href="books.html">
+        <span class="nav-icon">📖</span> Books
+      </a>
+      <a href="users.html">
+        <span class="nav-icon">🎓</span> Students
+      </a>
+      <a href="assign.html">
+        <span class="nav-icon">📋</span> Assign Book
+      </a>
+      <a href="returns.html">
+        <span class="nav-icon">↩️</span> Returns
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="admin-badge">
+        <div class="admin-avatar" id="adminInitial">A</div>
+        <div class="admin-info">
+          <p id="adminName">Admin</p>
+          <span>Administrator</span>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">🚪 Sign Out</button>
+    </div>
   </nav>
-  <main>
-    <h1>Dashboard</h1>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <p>Welcome back! Here's what's happening in your library today.</p>
+    </div>
+
+    <!-- Stats -->
     <div class="stats-grid">
-      <div class="stat-card"><h3 id="totalBooks">0</h3><p>Total Books</p></div>
-      <div class="stat-card"><h3 id="totalStudents">0</h3><p>Students</p></div>
-      <div class="stat-card"><h3 id="activeIssues">0</h3><p>Active Issues</p></div>
-      <div class="stat-card"><h3 id="totalFines">0</h3><p>Pending Fines (₹)</p></div>
+      <div class="stat-card">
+        <div class="stat-glow"></div>
+        <div class="stat-icon-wrap">📚</div>
+        <div class="stat-number" id="totalBooks">—</div>
+        <div class="stat-label">Total Books</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-glow"></div>
+        <div class="stat-icon-wrap">🎓</div>
+        <div class="stat-number" id="totalStudents">—</div>
+        <div class="stat-label">Registered Students</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-glow"></div>
+        <div class="stat-icon-wrap">📋</div>
+        <div class="stat-number" id="activeIssues">—</div>
+        <div class="stat-label">Active Issues</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-glow"></div>
+        <div class="stat-icon-wrap">💰</div>
+        <div class="stat-number" id="totalFines">—</div>
+        <div class="stat-label">Pending Fines (₹)</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-row">
+      <div class="chart-card">
+        <h3><span>🍩</span> Library Overview</h3>
+        <div style="position:relative;height:260px;display:flex;align-items:center;justify-content:center;">
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><span>📊</span> Book Availability</h3>
+        <div style="position:relative;height:260px;">
+          <canvas id="barChart"></canvas>
+        </div>
+        <div id="recentBooks" style="margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <a href="books.html" style="text-decoration:none;">
+        <div class="stat-card" style="cursor:pointer;text-align:center;padding:20px;">
+          <div style="font-size:2.5rem;margin-bottom:8px;">📖</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);">Manage Books</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px;">Add, edit, delete books</div>
+        </div>
+      </a>
+      <a href="assign.html" style="text-decoration:none;">
+        <div class="stat-card" style="cursor:pointer;text-align:center;padding:20px;">
+          <div style="font-size:2.5rem;margin-bottom:8px;">📋</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);">Issue a Book</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px;">Assign books to students</div>
+        </div>
+      </a>
+      <a href="returns.html" style="text-decoration:none;">
+        <div class="stat-card" style="cursor:pointer;text-align:center;padding:20px;">
+          <div style="font-size:2.5rem;margin-bottom:8px;">↩️</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);">Process Returns</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px;">Check overdue & fines</div>
+        </div>
+      </a>
     </div>
   </main>
+
   <script src="../js/auth.js"></script>
   <script>
+    // Set admin name
+    const name = localStorage.getItem('adminName') || 'Admin';
+    document.getElementById('adminName').textContent = name;
+    document.getElementById('adminInitial').textContent = name[0].toUpperCase();
+
+    let pieChart, barChart;
+
     async function loadDashboard() {
-      const res = await fetch('http://localhost:5000/api/reports/dashboard', {
-        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
-      });
-      const data = await res.json();
-      document.getElementById('totalBooks').textContent = data.totalBooks;
-      document.getElementById('totalStudents').textContent = data.totalStudents;
-      document.getElementById('activeIssues').textContent = data.activeIssues;
-      document.getElementById('totalFines').textContent = data.totalFines;
+      try {
+        const res  = await fetch('http://localhost:5000/api/reports/dashboard', { headers: authHeaders() });
+        const data = await res.json();
+
+        const books    = parseInt(data.totalBooks)    || 0;
+        const students = parseInt(data.totalStudents) || 0;
+        const issues   = parseInt(data.activeIssues)  || 0;
+        const fines    = parseFloat(data.totalFines)  || 0;
+
+        document.getElementById('totalBooks').textContent    = books;
+        document.getElementById('totalStudents').textContent = students;
+        document.getElementById('activeIssues').textContent  = issues;
+        document.getElementById('totalFines').textContent    = fines.toFixed(2);
+
+        drawPie(books, students, issues);
+        loadBarChart();
+      } catch(e) { console.error(e); }
     }
+
+    function drawPie(books, students, issues) {
+      const ctx = document.getElementById('pieChart').getContext('2d');
+      if (pieChart) pieChart.destroy();
+      pieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Books', 'Students', 'Active Issues'],
+          datasets: [{
+            data: [books || 1, students || 1, issues || 1],
+            backgroundColor: ['rgba(245,158,11,0.8)','rgba(20,184,166,0.8)','rgba(167,139,250,0.8)'],
+            borderColor:     ['#f59e0b','#14b8a6','#a78bfa'],
+            borderWidth: 2,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive:true, maintainAspectRatio:false,
+          cutout:'65%',
+          plugins:{
+            legend:{
+              position:'bottom',
+              labels:{ color:'#94a3b8', font:{size:12,family:'DM Sans'}, padding:16, boxWidth:12 }
+            }
+          }
+        }
+      });
+    }
+
+    async function loadBarChart() {
+      try {
+        const res   = await fetch('http://localhost:5000/api/books', { headers: authHeaders() });
+        const books = await res.json();
+        const top5  = books.slice(0,6);
+
+        const ctx = document.getElementById('barChart').getContext('2d');
+        if (barChart) barChart.destroy();
+        barChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: top5.map(b => b.title.length > 14 ? b.title.substring(0,14)+'…' : b.title),
+            datasets: [
+              { label:'Total', data: top5.map(b=>b.total_qty), backgroundColor:'rgba(245,158,11,0.25)', borderColor:'#f59e0b', borderWidth:1.5, borderRadius:6 },
+              { label:'Available', data: top5.map(b=>b.available_qty), backgroundColor:'rgba(20,184,166,0.25)', borderColor:'#14b8a6', borderWidth:1.5, borderRadius:6 }
+            ]
+          },
+          options: {
+            responsive:true, maintainAspectRatio:false,
+            plugins:{ legend:{ labels:{ color:'#94a3b8', font:{size:11}, boxWidth:10 } } },
+            scales:{
+              x:{ ticks:{color:'#64748b',font:{size:11}}, grid:{color:'rgba(255,255,255,0.04)'} },
+              y:{ ticks:{color:'#64748b',font:{size:11}}, grid:{color:'rgba(255,255,255,0.06)'} }
+            }
+          }
+        });
+      } catch(e) {}
+    }
+
     loadDashboard();
   </script>
 </body>

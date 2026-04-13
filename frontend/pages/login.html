@@ -2,18 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Library Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Library Management — Sign In</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="login-page">
-  <div class="login-card">
-    <h1>📚 Library Management</h1>
-    <p>Admin Login</p>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Sign In</button>
-    <p id="error" style="color:red;display:none"></p>
+<body class="login-body">
+
+  <!-- Animated Background -->
+  <div class="login-bg">
+    <div class="bg-image"></div>
+    <div class="book-float">📚</div>
+    <div class="book-float">📖</div>
+    <div class="book-float">📕</div>
+    <div class="book-float">📗</div>
+    <div class="book-float">📘</div>
+    <div class="book-float">🔖</div>
+    <div class="book-float">📓</div>
+    <div class="book-float">📜</div>
   </div>
+
+  <div class="login-wrap">
+    <!-- Left Panel -->
+    <div class="login-left">
+      <div class="login-left-top">
+        <span class="login-left-logo">📚</span>
+        <h2>Library Management System</h2>
+        <p>A complete digital solution for managing books, students, and records with ease.</p>
+      </div>
+      <ul class="login-features">
+        <li><span>📖</span> Manage entire book catalog</li>
+        <li><span>👥</span> Track student records</li>
+        <li><span>📋</span> Issue &amp; return books</li>
+        <li><span>⚠️</span> Automatic overdue detection</li>
+        <li><span>📄</span> Export student PDF history</li>
+        <li><span>📊</span> Live dashboard analytics</li>
+      </ul>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="login-right">
+      <h3>Welcome Back</h3>
+      <p>Sign in to your administrator account</p>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="admin@library.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password"
+               onkeydown="if(event.key==='Enter') login()" />
+      </div>
+
+      <button class="login-btn" onclick="login()">Sign In →</button>
+      <div class="error-msg" id="error"></div>
+    </div>
+  </div>
+
   <script src="../js/auth.js"></script>
 </body>
 </html>

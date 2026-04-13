@@ -1,30 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Assign Book</title><link rel="stylesheet" href="../css/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Assign Book — Library</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
 <body>
   <nav class="sidebar">
-    <h2>📚 Library</h2>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="books.html">Books</a>
-    <a href="users.html">Users</a>
-    <a href="assign.html" class="active">Assign Book</a>
-    <a href="returns.html">Returns</a>
-    <button onclick="logout()">Logout</button>
-  </nav>
-  <main>
-    <h1>Assign Book</h1>
-    <div class="form-box">
-      <select id="bookSelect"><option value="">Select Book</option></select>
-      <select id="studentSelect"><option value="">Select Student</option></select>
-      <input id="dueDate" type="date" />
-      <button onclick="assignBook()">Issue Book</button>
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <h1>LibraryOS</h1>
+      <p>Admin Portal</p>
     </div>
-    <h2>Currently Issued</h2>
-    <table id="issueTable">
-      <thead><tr><th>Student</th><th>Roll No</th><th>Book</th><th>Issue Date</th><th>Due Date</th></tr></thead>
-      <tbody></tbody>
-    </table>
+    <div class="nav-section">
+      <div class="nav-label">Main Menu</div>
+      <a href="dashboard.html"><span class="nav-icon">🏛️</span> Dashboard</a>
+      <a href="books.html"><span class="nav-icon">📖</span> Books</a>
+      <a href="users.html"><span class="nav-icon">🎓</span> Students</a>
+      <a href="assign.html" class="active"><span class="nav-icon">📋</span> Assign Book</a>
+      <a href="returns.html"><span class="nav-icon">↩️</span> Returns</a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="admin-badge">
+        <div class="admin-avatar">A</div>
+        <div class="admin-info"><p>Admin</p><span>Administrator</span></div>
+      </div>
+      <button class="logout-btn" onclick="logout()">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>📋 Assign Book</h1>
+      <p>Issue books to students and track due dates</p>
+    </div>
+
+    <div class="form-box">
+      <select id="bookSelect"><option value="">📚 Select Book</option></select>
+      <select id="studentSelect"><option value="">🎓 Select Student</option></select>
+      <input id="dueDate" type="date" style="max-width:190px" />
+      <button class="btn-primary" onclick="assignBook()">📋 Issue Book</button>
+    </div>
+
+    <div class="table-box">
+      <div class="table-header">
+        <h2>📋 Currently Issued</h2>
+        <span class="table-count" id="issueCount">0 active</span>
+      </div>
+      <table id="issueTable">
+        <thead>
+          <tr>
+            <th>#</th><th>Student</th><th>Roll No</th><th>Book</th>
+            <th>Issue Date</th><th>Due Date</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </main>
+
+  <div class="toast" id="toast"></div>
   <script src="../js/auth.js"></script>
   <script src="../js/assign.js"></script>
 </body>

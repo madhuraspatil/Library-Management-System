@@ -1,10 +1,70 @@
-<div class="form-box">
-  <input id="name" placeholder="Full Name" />
-  <input id="email" placeholder="Email" />
-  <input id="phone" placeholder="Phone" />
-  <input id="roll" placeholder="Roll Number" />
-  <input id="dept" placeholder="Department" />
-  <button id="userSubmitBtn" onclick="addUser()">Add Student</button>
-  <button id="userCancelBtn" onclick="cancelUserEdit()" 
-    style="display:none; background:#6b7280">Cancel</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students — Library</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <h1>LibraryOS</h1>
+      <p>Admin Portal</p>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Main Menu</div>
+      <a href="dashboard.html"><span class="nav-icon">🏛️</span> Dashboard</a>
+      <a href="books.html"><span class="nav-icon">📖</span> Books</a>
+      <a href="users.html" class="active"><span class="nav-icon">🎓</span> Students</a>
+      <a href="assign.html"><span class="nav-icon">📋</span> Assign Book</a>
+      <a href="returns.html"><span class="nav-icon">↩️</span> Returns</a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="admin-badge">
+        <div class="admin-avatar">A</div>
+        <div class="admin-info"><p>Admin</p><span>Administrator</span></div>
+      </div>
+      <button class="logout-btn" onclick="logout()">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>🎓 Students</h1>
+      <p>Manage student registrations and view their borrowing history</p>
+    </div>
+
+    <div class="form-box">
+      <input id="name"  placeholder="👤 Full Name *" />
+      <input id="email" placeholder="📧 Email *" />
+      <input id="phone" placeholder="📞 Phone" />
+      <input id="roll"  placeholder="🔖 Roll Number *" />
+      <input id="dept"  placeholder="🏫 Department" />
+      <button class="btn-primary" id="userSubmitBtn" onclick="addUser()">＋ Add Student</button>
+      <button class="btn-cancel"  id="userCancelBtn" onclick="cancelUserEdit()">✕ Cancel</button>
+    </div>
+
+    <div class="table-box">
+      <div class="table-header">
+        <h2>🎓 All Students</h2>
+        <span class="table-count" id="userCount">0 students</span>
+      </div>
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>#</th><th>Student</th><th>Roll No</th><th>Department</th>
+            <th>Contact</th><th>History</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/users.js"></script>
+</body>
+</html>
